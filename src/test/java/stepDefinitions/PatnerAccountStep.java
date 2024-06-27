@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import com.aventstack.extentreports.Status;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -43,48 +44,50 @@ public class PatnerAccountStep {
     @Then("I should see the patner accounts table")
     public void i_should_see_the_user_accounts_table() {
         Assert.assertTrue(patnerAccountPage.isTableVisible());
+        Hooks.patnerAccountTest.log(Status.PASS, "Patner Account Table is visible");
     }
 
     @When("I enter {string} into the search field patner account")
     public void i_enter_into_the_search_field(String key) {
         patnerAccountPage.enterSearchKey(key);
+        Hooks.patnerAccountTest.log(Status.INFO, "Search key entered");
     }
 
     @Then("I should see the account patner details for {string}")
     public void i_should_see_the_account_details_for(String key) {
         Assert.assertTrue(patnerAccountPage.isSearchResultVisible());
+        Hooks.patnerAccountTest.log(Status.PASS, "Search result is visible");
     }
 
     @When("I click on the account patner details for {string}")
     public void iClickOnTheAccountDetailsFor(String arg0) {
         patnerAccountPage.clickDropdownButton();
         patnerAccountPage.clickDetailButton();
+        Hooks.patnerAccountTest.log(Status.INFO, "Click on the account details");
     }
 
     @Then("I should see the account patner address {string} from different page")
     public void iShouldSeeTheAccountPinFromDifferentPage(String address) {
         Assert.assertTrue(patnerAccountPage.isAddressVisible());
+        Hooks.patnerAccountTest.log(Status.PASS, "Address is visible");
     }
 
     @And("I click on the blocked status patner button")
     public void iClickOnTheBlockedStatusButton() {
         patnerAccountPage.clickBlockedOption();
+        Hooks.patnerAccountTest.log(Status.INFO, "Click on the blocked status button");
     }
 
     @Then("I save the changes patner account")
     public void iSaveTheChanges() {
         patnerAccountPage.clickSaveButton();
+        Hooks.patnerAccountTest.log(Status.INFO, "Save the changes");
     }
 
     @And("I should see the account patner status {string} for {string}")
     public void iShouldSeeTheAccountStatusFor(String arg0, String arg1) {
         Assert.assertTrue(patnerAccountPage.isSuccessMessageVisible());
+        Hooks.patnerAccountTest.log(Status.PASS, "Success message is visible");
     }
 
-    @After
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 }

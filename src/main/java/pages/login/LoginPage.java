@@ -30,4 +30,5 @@ public class LoginPage {
     public void getErrorMessage(){
         driver.findElement(loginObject.getErrorMessage()).getText();
     }
+
 }

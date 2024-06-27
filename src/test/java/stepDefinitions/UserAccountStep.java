@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import com.aventstack.extentreports.Status;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -36,53 +37,56 @@ public class UserAccountStep {
         inputPassword.sendKeys("123123");
         WebElement buttonLogin = driver.findElement(loginObjectPage.getButtonLogin());
         buttonLogin.click();
+        Hooks.userAccountTest.log(Status.INFO, "Open user account page");
     }
 
     @Then("I should see the user accounts table")
     public void i_should_see_the_user_accounts_table() {
         Assert.assertTrue(userAccountPage.isTableVisible());
+        Hooks.userAccountTest.log(Status.PASS, "User Account Table is visible");
     }
 
     @When("I enter {string} into the search field")
     public void i_enter_into_the_search_field(String key) {
         userAccountPage.enterSearchKey(key);
+        Hooks.userAccountTest.log(Status.INFO, "Search key entered");
     }
 
     @Then("I should see the account details for {string}")
     public void i_should_see_the_account_details_for(String key) {
         Assert.assertTrue(userAccountPage.isSearchResultVisible());
+        Hooks.userAccountTest.log(Status.PASS, "Search result is visible");
     }
 
     @When("I click on the account details for {string}")
     public void iClickOnTheAccountDetailsFor(String arg0) {
         userAccountPage.clickDropdownButton();
         userAccountPage.clickDetailButton();
+        Hooks.userAccountTest.log(Status.INFO, "Click on the account details");
     }
 
     @Then("I should see the account pin {string} from different page")
     public void iShouldSeeTheAccountPinFromDifferentPage(String pin) {
         Assert.assertTrue(userAccountPage.isPinVisible());
+        Hooks.userAccountTest.log(Status.PASS, "Pin is visible");
     }
 
     @And("I click on the blocked status button")
     public void iClickOnTheBlockedStatusButton() {
         userAccountPage.clickBlockedOption();
+        Hooks.userAccountTest.log(Status.INFO, "Click on the blocked status button");
     }
 
     @Then("I save the changes")
     public void iSaveTheChanges() {
         userAccountPage.clickSaveButton();
+        Hooks.userAccountTest.log(Status.INFO, "Save the changes");
     }
 
     @And("I should see the account status {string} for {string}")
     public void iShouldSeeTheAccountStatusFor(String arg0, String arg1) {
         Assert.assertTrue(userAccountPage.isSuccessMessageVisible());
+        Hooks.userAccountTest.log(Status.PASS, "Status is visible");
     }
 
-    @After
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 }

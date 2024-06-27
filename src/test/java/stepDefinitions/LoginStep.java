@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import com.aventstack.extentreports.Status;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -7,6 +8,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -16,6 +18,7 @@ public class LoginStep {
     WebDriver driver;
     LoginObject loginObjectPage;
 
+
     @Before
     public void setup() {
         driver = Hooks.getDriver();
@@ -24,7 +27,8 @@ public class LoginStep {
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        driver.get("http://127.0.0.1:8001/login"); // Change URL to your login page
+        driver.get("http://127.0.0.1:8001/login");
+        Hooks.loginTest.log(Status.INFO, "Open login page");
     }
 
     @When("I fill in the login form with valid credentials")
@@ -33,18 +37,21 @@ public class LoginStep {
         WebElement inputPassword = driver.findElement(loginObjectPage.getInputPassword());
         inputPhone.sendKeys("088888883838");
         inputPassword.sendKeys("123123");
+        Hooks.loginTest.log(Status.INFO, "Login form filled with valid credentials");
     }
 
     @And("I submit the login form")
     public void i_submit_the_login_form() {
         WebElement buttonLogin = driver.findElement(loginObjectPage.getButtonLogin());
         buttonLogin.click();
+        Hooks.loginTest.log(Status.INFO, "Login form submitted");
     }
 
     @Then("I should be on the dashboard page")
     public void i_should_be_on_the_dashboard_page() {
         String currentUrl = driver.getCurrentUrl();
-        Assert.assertTrue("Current URL does not contain 'dashboard'", currentUrl.contains("dashboard")); // Assuming the URL contains 'dashboard'
+        Assert.assertTrue("Current URL does not contain 'dashboard'", currentUrl.contains("dashboard"));
+        Hooks.loginTest.log(Status.PASS, "Login successful");
     }
 
 

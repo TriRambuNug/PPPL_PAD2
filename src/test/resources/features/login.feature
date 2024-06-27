@@ -1,4 +1,4 @@
-Feature: User Login
+Feature: User Login and Logout
 
     Scenario: Successful Login
         Given I am on the login page
